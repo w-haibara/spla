@@ -3,7 +3,6 @@ int y=0;
 int aimX, aimY;
 boolean L, R, U, D;
 boolean staticL, staticR, staticU, staticD;
-int speed=4;
 
 void setup() {
   background(255);
@@ -21,8 +20,10 @@ void setup() {
 }
 
 void draw() {
+  int speed=4;
   background(255);
-
+  translate(0,0);
+  strokeWeight(1);
 
   if (x<0) {
     staticL=true;
@@ -56,23 +57,25 @@ void draw() {
 
   ellipse(x, y, 50, 50);
 
-
   aimX=mouseX;
   aimY=mouseY;
-  int r=30;
+
+
   ellipse(aimX, aimY, 10, 10);
-  line(x/r+x,y/r+y,aimX/r+x,aimY/r+y);
 
+  float r=50.0;
+  int S=round(sqrt( pow(aimX-x, 2) + pow(aimY-y, 2)));
 
+  translate(x,y);
+  scale(r/S);
+  strokeWeight(S/r);
+  line( 0, 0, aimX-x, aimY-y );
+  
   staticL=false;
   staticR=false;
   staticU=false;
   staticD=false;
 }
-
-
-
-
 
 void keyPressed() {
   if (key=='a') {
